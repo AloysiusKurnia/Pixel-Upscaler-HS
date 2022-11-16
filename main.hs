@@ -9,4 +9,4 @@ upscale algorithm scale inputName outputName =
     Byte.readFile inputName >>= (return . (processWith algorithm scale)) >>= Byte.writeFile outputName
 
 main :: IO ()
-main = upscale NearestNeighbor "example.bmp" "output.bmp"
+main = upscale 2 NearestNeighbor "example.bmp" "output.bmp"
