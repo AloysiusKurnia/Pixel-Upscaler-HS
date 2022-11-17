@@ -1,4 +1,4 @@
-module Src.FileProcessing.FileProcessor where
+module Src.FileProcessing.MetadataProcessor where
 
 import Src.FileProcessing.Validator
 import Src.FileProcessing.ByteReader
