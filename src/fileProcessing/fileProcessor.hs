@@ -10,14 +10,14 @@ import Src.FileProcessor.ByteReader
 --   * each colors use the same number of bits (aside from alpha),
 --   * no compression is used.
 data Metadata = Metadata {
-    width :: Int,
-    height :: Int,
-    offset :: Int,
-    bitsPerPixel :: Int,
-    bitsPerColor :: Int,
-    redOffset :: Int,
-    greenOffset :: Int,
-    blueOffset :: Int
+    width :: Int, -- Width of the image in pixels.
+    height :: Int, -- Height of the image in pixels.
+    offset :: Int, -- Byte offset to the pixel data.
+    bitsPerPixel :: Int, -- Number of bits per pixel.
+    bitsPerColor :: Int, -- Number of bits per color channel.
+    redOffset :: Int, -- Offset of the red channel in bits.
+    greenOffset :: Int, -- Offset of the green channel in bits.
+    blueOffset :: Int -- Offset of the blue channel in bits.
 } deriving (Show)
 
 
