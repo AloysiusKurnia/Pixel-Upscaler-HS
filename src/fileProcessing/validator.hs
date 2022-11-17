@@ -10,11 +10,11 @@ validateProgramLength bytestring = if programLength < 0x36
     programLength = Data.ByteString.length bytestring
 
 validateNoCompression :: ByteString -> Either String ()
-validateNoCompression bytestring = if compression /= 0
-  then Left "Compression is not supported."
+validateNoCompression bytestring = if compression /= 0 && compression /= 3
+  then Left "Compression is not supported. Supported compression types are BI_RGB and BI_BITFIELDS."
   else Right () where
     compression = read4Bytes bytestring 0x1E
-
+  
 validateIsBmp :: ByteString -> Either String ()
 validateIsBmp bytestring = if 
     (read2Bytes bytestring 0x0 == 0x4D42) -- BM
