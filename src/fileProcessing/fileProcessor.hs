@@ -1,7 +1,10 @@
-module Src.FileProcessor where
+module Src.FileProcessing.FileProcessor where
 
-import Src.FileProcessor.Validator
-import Src.FileProcessor.ByteReader
+import Src.FileProcessing.Validator
+import Src.FileProcessing.ByteReader
+
+import Data.Bits (popCount, countLeadingZeros)
+import Data.ByteString (ByteString)
 
 -- The metadata of a bitmap file. This is the information that is stored in 
 -- the header of the file. Some things are assumed:
@@ -20,20 +23,52 @@ data Metadata = Metadata {
     blueOffset :: Int -- Offset of the blue channel in bits.
 } deriving (Show)
 
-
 -- Returns the position of the first occurence of a pixel in the given bytestring.
-pixelArrayStart :: Byte.ByteString -> Int
-pixelArrayStart bytestring = fromIntegral $ readLittleEndian bytestring 0xA 4
+pixelArrayStart :: ByteString -> Int
+pixelArrayStart bytestring = fromIntegral $ read4Bytes bytestring 0xA
+
 
 -- Returns the size of the image in width and height tuple.
-dimensions :: Byte.ByteString -> (Int, Int)
+dimensions :: ByteString -> (Int, Int)
 dimensions bytestring = (imageWidth bytestring, imageHeight bytestring) where
-  imageWidth bytestring = fromIntegral $ readLittleEndian bytestring 0x12 4
-  imageHeight bytestring = fromIntegral $ readLittleEndian bytestring 0x16 4
+  imageWidth bytestring = fromIntegral $ read4Bytes bytestring 0x12
+  imageHeight bytestring = fromIntegral $ read4Bytes bytestring 0x16
 
--- Obtain the red, green, and blue bitmasks from the header.
-bitmasks :: Byte.ByteString -> (Integer, Integer, Integer)
-bitmasks bytestring = (
-  readLittleEndian bytestring 0x36 4,
-  readLittleEndian bytestring 0x3A 4,
-  readLittleEndian bytestring 0x3E 4)
+
+-- Extracts bits per color, red offset, green offset, blue offset from the given bytestring.
+extractMasks :: ByteString -> Either String (Int, Int, Int, Int)
+extractMasks bytestring = if popCount redMask /= popCount greenMask || popCount redMask /= popCount blueMask
+  then Left "The number of bits per color is not the same."
+  else Right (bitsPerColor, redOffset, greenOffset, blueOffset) where
+    redMask = read4Bytes bytestring 0x36
+    greenMask = read4Bytes bytestring 0x3A
+    blueMask = read4Bytes bytestring 0x3E
+
+    bitsPerColor = popCount redMask
+    redOffset = countLeadingZeros redMask
+    greenOffset = countLeadingZeros greenMask
+    blueOffset = countLeadingZeros blueMask
+
+
+-- Returns the metadata of the given bitmap file.
+getMetadata :: ByteString -> Either String Metadata
+getMetadata bytestring = do
+  validateProgramLength bytestring
+  validateIsBmp bytestring
+  validateNoCompression bytestring
+  validateHeaderSize bytestring
+
+  bpp <- extractBitsPerPixel bytestring
+  (bitsPerColor, redOffset, greenOffset, blueOffset) <- extractMasks bytestring
+  (width, height) <- return $ dimensions bytestring
+
+  return Metadata {
+    width = width,
+    height = height,
+    offset = pixelArrayStart bytestring,
+    bitsPerPixel = bpp,
+    bitsPerColor = bitsPerColor,
+    redOffset = redOffset,
+    greenOffset = greenOffset,
+    blueOffset = blueOffset
+  }

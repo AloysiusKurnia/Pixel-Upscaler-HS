@@ -1,14 +1,19 @@
-module Src.FileProcessor.ByteReader where
+module Src.FileProcessing.ByteReader where
 
-import qualified Data.ByteString as Byte
-import qualified Data.Bits as Bits
+import Data.ByteString (ByteString, index)
+import Data.Word (Word16, Word32)
+import Data.Bits (shiftL, shiftR, (.|.))
 
--- Reads n bytes from the given bytestring starting at the given offset.
--- The bytes are read in little endian order.
-readByte :: Byte.ByteString -> Int -> Int -> Integer
-readByte bytestring at 1 = toInteger $ Byte.index bytestring at
-readByte bytestring at n = (toInteger $ Byte.index bytestring at) + (readLittleEndian bytestring (at + 1) (n - 1)) * 0x100
+-- Returns two bytes from the given bytestring, starting at the given index.
+-- The bytes are read in little endian, unsigned format.
+read2Bytes :: ByteString -> Int -> Word16
+read2Bytes bytestring at = (fromIntegral $ index bytestring (at))
+                       .|. (fromIntegral $ index bytestring (at + 1)) `shiftL` 8
 
--- Extracts how many bits are used for each color channel.
-extractBitSizeFromMask :: Word32 -> Int
-extractBitSizeFromMask mask = Bits.popCount mask
+-- Returns four bytes from the given bytestring, starting at the given index.
+-- The bytes are read in little endian, unsigned format.
+read4Bytes :: ByteString -> Int -> Word32
+read4Bytes bytestring at = (fromIntegral $ index bytestring (at))
+                       .|. (fromIntegral $ index bytestring (at + 1)) `shiftL` 8
+                       .|. (fromIntegral $ index bytestring (at + 2)) `shiftL` 16
+                       .|. (fromIntegral $ index bytestring (at + 3)) `shiftL` 24
