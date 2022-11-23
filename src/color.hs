@@ -1,3 +1,4 @@
+module Src.Color where
 -- create data structure for color
 data Color = Color { red :: Int, green :: Int, blue :: Int } deriving (Show)
 
@@ -33,14 +34,3 @@ toYUV (Color r g b) = Color y u v
         y = (r * 299 + g * 587 + b * 114) `div` 1000
         u = (b * 564 - g * 534 - r * 30) `div` 1000 + 128
         v = (r * 713 - g * 642 - b * 71) `div` 1000 + 128
-
-
--- returns the extracted color after applying the given filter
-extractColorFromNumberWithBitmask :: Int -> Int -> Int -> Int -> Color
-extractColorFromNumberWithBitmask number bitmask redShift greenShift = 
-    Color (extractColorFromNumberWithBitmask' number bitmask redShift) 
-          (extractColorFromNumberWithBitmask' number bitmask greenShift)
-          (extractColorFromNumberWithBitmask' number bitmask 0)
-
-extractColorFromNumberWithBitmask' :: Int -> Int -> Int -> Int
--- todo

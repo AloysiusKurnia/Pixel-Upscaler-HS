@@ -3,6 +3,7 @@ module Main where
 import qualified Data.ByteString as Byte
 import Src.UpscaleAlgorithm
 import Src.Processor
+import Src.Color
 
 upscale :: UpscaleType -> Int -> String -> String -> IO ()
 upscale algorithm scale inputName outputName =
