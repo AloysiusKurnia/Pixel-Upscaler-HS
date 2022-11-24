@@ -17,15 +17,15 @@ scale3xNeigborhood :: Square3x3 RGBPixel -> Square3x3 RGBPixel
 scale3xNeigborhood (a, b, c, d, e, f, g, h, i)
     | b /= h && d /= f = (
         if b == d then d else e,
-        if (d == b && e == c) || (b == f && e == i) then b else e,
+        if (d == b && e /= c) || (b == f && e /= a) then b else e,
         if b == f then f else e,
 
-        if (d == b && e == g) || (d == h && e == a) then d else e,
+        if (d == b && e /= g) || (d == h && e /= a) then d else e,
         e,
-        if (b == f && e == i) || (h == f && e == c) then f else e,
+        if (b == f && e /= i) || (h == f && e /= c) then f else e,
 
         if d == h then d else e,
-        if (d == h && e == a) || (h == f && e == g) then h else e,
+        if (d == h && e /= a) || (h == f && e /= g) then h else e,
         if f == h then f else e)
     | otherwise = (e, e, e, e, e, e, e, e, e)
 
