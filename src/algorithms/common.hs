@@ -79,3 +79,9 @@ upscale2x algorithm img = Img.transpose
     $ Img.fromLists 
     $ apply2x2 (algorithm img) 
     $ xySpace (Img.cols img) (Img.rows img)
+
+upscale3x :: (RGBImage -> (Int, Int) -> Square3x3 RGBPixel) -> RGBImage -> RGBImage
+upscale3x algorithm img = Img.transpose 
+    $ Img.fromLists 
+    $ apply3x3 (algorithm img) 
+    $ xySpace (Img.cols img) (Img.rows img)
