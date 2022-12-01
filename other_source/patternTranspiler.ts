@@ -141,6 +141,71 @@ function transpilePatterns(cases: HQXCase[], variant: 'HQ2x' | 'HQ3x') {
     return out;
 }
 
+function transpileBlendType(text: string, variant: 'HQ2x' | 'HQ3x') {
+    const lines = text.split('\n');
+    const n = variant === 'HQ2x' ? 2 : 3;
+    const blendTypes: {
+        posInsideNeighbor: string,
+        interpType: string, 
+        pattern: string,
+        c1: string,
+        c2: string | null,
+        c3: string | null,
+    }[] = [];
+    const patterns = new Set<string>();
+    const neighborhoodPositions = new Set<string>();
+    for (let line of lines) {
+        line = line.trim();
+        
+        if (line === '#define PIXEL11     *(dp+dpL+1) = w[5];') {
+            console.log('found');
+            
+            patterns.add(`B${n}_`);
+            neighborhoodPositions.add(`P${n}_11`);
+            blendTypes.push({ posInsideNeighbor: '11', pattern: '', interpType: 'singleton', c1: '5', c2: null, c3: null });
+            continue;
+        }
+        let match = line.match(/#define PIXEL(\d\d)_([^ ]+) +Interp(\d)\([dpL+12]+, w\[(\d)\], w\[(\d)\]\);/);
+        if (match) {
+            const [_, posInsideNeighbor, pattern, interpType, c1, c2] = match;
+            patterns.add(`B${n}_${pattern}`);
+            neighborhoodPositions.add(`P${n}_${posInsideNeighbor}`);
+            blendTypes.push({ posInsideNeighbor, pattern, interpType, c1, c2, c3: null });
+            continue;
+        }
+        match = line.match(/#define PIXEL(\d\d)_([^ ]+) +\*[()dpL+12]+ += w\[5\];/);
+        if (match) {
+            const [_, posInsideNeighbor, pattern] = match;
+            patterns.add(`B${n}_${pattern}`);
+            neighborhoodPositions.add(`P${n}_${posInsideNeighbor}`);
+            blendTypes.push({ posInsideNeighbor, pattern, interpType: 'singleton', c1: '5', c2: null, c3: null });
+            continue;
+        }
+        match = line.match(/#define PIXEL(\d\d)_([^ ]+) +Interp(\d)\([dpL+12]+, w\[(\d)\], w\[(\d)\], w\[(\d)\]\);/);
+        if (match) {
+            const [_, posInsideNeighbor, pattern, interpType, c1, c2, c3] = match;
+            patterns.add(`B${n}_${pattern}`);
+            neighborhoodPositions.add(`P${n}_${posInsideNeighbor}`);
+            blendTypes.push({ posInsideNeighbor, pattern, interpType, c1, c2, c3 });
+            continue;
+        }
+    }
+    let out = `type PositionPattern${variant} = ${Array.from(neighborhoodPositions).join(' | ')}\n\n`;
+    out += `type BlendType${variant} = ${Array.from(patterns).join(' | ')}\n\n`;
+    out += `blend${variant} :: PositionPattern${variant} -> BlendType${variant} -> Square3x3 RGBPixel -> RGBPixel\n`;
+    for (const blendType of blendTypes) {
+        out += `blend${variant} neighborhood `
+        out += `P${n}_${blendType.posInsideNeighbor} `
+        out += `B${n}_${blendType.pattern} = `
+        if (blendType.interpType === 'singleton') {
+            out += `getNthColorFromNeighborhood 5 neighborhood\n`;
+        } else {
+            out += `blendHQX neighborhood ${blendType.pattern} ${blendType.c1} ${blendType.c2} ${blendType.c3 ?? '5'}\n`;
+        }
+    }
+    return out;
+}
+
 async function processVariant(variant: 'HQ2x' | 'HQ3x') {
     const text = await Deno.readTextFile(`other_source/${variant.toLowerCase()}.txt`);
     const cases = parsePatterns(text);
@@ -148,9 +213,10 @@ async function processVariant(variant: 'HQ2x' | 'HQ3x') {
     await Deno.writeTextFile(`src/Algorithms/HQXPatterns/${variant}.hs`, out);
 }
 
-function main() {
-    processVariant('HQ2x');
-    processVariant('HQ3x');
+async function main() {
+    const text = await Deno.readTextFile(`other_source/hq3xBlend.txt`);
+    console.log(transpileBlendType(text, 'HQ3x'));
+
 }
 
 main();
