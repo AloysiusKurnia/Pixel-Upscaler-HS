@@ -21,7 +21,7 @@ interface ActiveConditional {
     blendTypesIfFalse: Record<string, string>;
 }
 
-function parse(text: string) {
+function parsePatterns(text: string) {
     const lines = text.split('\n');
     const cases: HQXCase[] = [];
     let currentCase: HQXCase = { cases: [], blendTypes: {} };
@@ -103,7 +103,7 @@ function parse(text: string) {
     return cases;
 }
 
-function transpileHQX(cases: HQXCase[], variant: 'HQ2x' | 'HQ3x') {
+function transpilePatterns(cases: HQXCase[], variant: 'HQ2x' | 'HQ3x') {
     const variantNumber = variant === 'HQ2x' ? 2 : 3;
     let out = `module Src.Algorithms.HQXPatterns.${variant} where\n\n`;
     out += `import Src.Algorithms.HQX\n`;
@@ -143,8 +143,8 @@ function transpileHQX(cases: HQXCase[], variant: 'HQ2x' | 'HQ3x') {
 
 async function processVariant(variant: 'HQ2x' | 'HQ3x') {
     const text = await Deno.readTextFile(`other_source/${variant.toLowerCase()}.txt`);
-    const cases = parse(text);
-    const out = transpileHQX(cases, variant);
+    const cases = parsePatterns(text);
+    const out = transpilePatterns(cases, variant);
     await Deno.writeTextFile(`src/Algorithms/HQXPatterns/${variant}.hs`, out);
 }
 
