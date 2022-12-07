@@ -35,8 +35,8 @@ type Square3x3 a = (
 -- bounds, returns the pixel at the closest coordinates.
 safeGetPixel :: RGBImage -> (Int, Int) -> RGBPixel
 safeGetPixel img (x, y) = Img.index img (
-    clamp 0 (Img.cols img - 1) x,
-    clamp 0 (Img.rows img - 1) y)
+    clamp 0 (Img.rows img - 1) y,
+    clamp 0 (Img.cols img - 1) x)
 
 clamp :: Int -> Int -> Int -> Int
 clamp min max x
@@ -103,15 +103,13 @@ apply3x3 f = stack3x3RowsVertically . map (stack3x3SquaresHorizontally . map f)
 
 -- | Upscales an image by a factor of 2, using the given upsampling function.
 upscale2x :: (RGBImage -> (Int, Int) -> Square2x2 RGBPixel) -> RGBImage -> RGBImage
-upscale2x algorithm img = Img.transpose 
-    $ Img.fromLists 
+upscale2x algorithm img = Img.fromLists 
     $ apply2x2 (algorithm img) 
     $ xySpace (Img.cols img) (Img.rows img)
 
 -- | Upscales an image by a factor of 3, using the given upsampling function.
 upscale3x :: (RGBImage -> (Int, Int) -> Square3x3 RGBPixel) -> RGBImage -> RGBImage
-upscale3x algorithm img = Img.transpose 
-    $ Img.fromLists 
+upscale3x algorithm img = Img.fromLists 
     $ apply3x3 (algorithm img) 
     $ xySpace (Img.cols img) (Img.rows img)
 
