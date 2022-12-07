@@ -11,59 +11,59 @@ hq3x :: RGBImage -> (Int, Int) -> Square3x3 RGBPixel
 hq3x img (x, y) = getPixelValueHQ3x (getNeighborhood img (x, y))
 
 blendHQ3x :: Square3x3 RGBPixel -> PositionPatternHQ3x -> BlendTypeHQ3x -> RGBPixel
-blendHQ3x neighborhood P3_00 B3_1M =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 1 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_00 B3_1U =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_00 B3_1L =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_00 B3_2 =   interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 2 neighborhood)
-blendHQ3x neighborhood P3_00 B3_4 =   interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 2 neighborhood)
-blendHQ3x neighborhood P3_00 B3_5 =   interpHQX 5 (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_00 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_00 B3_1M = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 1 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_00 B3_1U = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_00 B3_1L = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_00 B3_2 = interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 2 neighborhood)
+blendHQ3x neighborhood P3_00 B3_4 = interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 2 neighborhood)
+blendHQ3x neighborhood P3_00 B3_5 = interpHQX 5 (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_00 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_01 B3_1 =   interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_01 B3_3 =   interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_01 B3_6 =   interpHQX 1 (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_01 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_01 B3_1 = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_01 B3_3 = interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_01 B3_6 = interpHQX 1 (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_01 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_02 B3_1M =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 3 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_02 B3_1U =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_02 B3_1R =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_02 B3_2 =   interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 6 neighborhood)
-blendHQ3x neighborhood P3_02 B3_4 =   interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 6 neighborhood)
-blendHQ3x neighborhood P3_02 B3_5 =   interpHQX 5 (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_02 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_02 B3_1M = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 3 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_02 B3_1U = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_02 B3_1R = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_02 B3_2 = interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 6 neighborhood)
+blendHQ3x neighborhood P3_02 B3_4 = interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 6 neighborhood)
+blendHQ3x neighborhood P3_02 B3_5 = interpHQX 5 (getNthColorFromNeighborhood 2 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_02 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_10 B3_1 =   interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_10 B3_3 =   interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_10 B3_6 =   interpHQX 1 (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_10 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_10 B3_1 = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_10 B3_3 = interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_10 B3_6 = interpHQX 1 (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_10 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_11 _ =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_11 _ = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_12 B3_1 =   interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_12 B3_3 =   interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_12 B3_6 =   interpHQX 1 (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_12 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_12 B3_1 = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_12 B3_3 = interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_12 B3_6 = interpHQX 1 (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_12 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_20 B3_1M =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 7 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_20 B3_1D =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_20 B3_1L =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_20 B3_2 =   interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 4 neighborhood)
-blendHQ3x neighborhood P3_20 B3_4 =   interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 4 neighborhood)
-blendHQ3x neighborhood P3_20 B3_5 =   interpHQX 5 (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_20 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_20 B3_1M = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 7 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_20 B3_1D = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_20 B3_1L = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_20 B3_2 = interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 4 neighborhood)
+blendHQ3x neighborhood P3_20 B3_4 = interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 4 neighborhood)
+blendHQ3x neighborhood P3_20 B3_5 = interpHQX 5 (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 4 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_20 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_21 B3_1 =   interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_21 B3_3 =   interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_21 B3_6 =   interpHQX 1 (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_21 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_21 B3_1 = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_21 B3_3 = interpHQX 3 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_21 B3_6 = interpHQX 1 (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_21 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
-blendHQ3x neighborhood P3_22 B3_1M =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 9 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_22 B3_1D =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_22 B3_1R =  interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_22 B3_2 =   interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 8 neighborhood)
-blendHQ3x neighborhood P3_22 B3_4 =   interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 8 neighborhood)
-blendHQ3x neighborhood P3_22 B3_5 =   interpHQX 5 (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
-blendHQ3x neighborhood P3_22 B3_C =   getNthColorFromNeighborhood 5 neighborhood
+blendHQ3x neighborhood P3_22 B3_1M = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 9 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_22 B3_1D = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_22 B3_1R = interpHQX 1 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_22 B3_2 = interpHQX 2 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 8 neighborhood)
+blendHQ3x neighborhood P3_22 B3_4 = interpHQX 4 (getNthColorFromNeighborhood 5 neighborhood) (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 8 neighborhood)
+blendHQ3x neighborhood P3_22 B3_5 = interpHQX 5 (getNthColorFromNeighborhood 6 neighborhood) (getNthColorFromNeighborhood 8 neighborhood) (getNthColorFromNeighborhood 5 neighborhood)
+blendHQ3x neighborhood P3_22 B3_C = getNthColorFromNeighborhood 5 neighborhood
 
 getPixelValueHQ3x :: Square3x3 RGBPixel -> Square3x3 RGBPixel
 getPixelValueHQ3x neighborhood

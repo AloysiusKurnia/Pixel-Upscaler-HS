@@ -34,12 +34,15 @@ type Square3x3 a = (
 -- | Returns the pixel at the given coordinates. If the coordinates are out of
 -- bounds, returns the pixel at the closest coordinates.
 safeGetPixel :: RGBImage -> (Int, Int) -> RGBPixel
-safeGetPixel img (x, y)
-    | x < 0 = Img.index img (0, y)
-    | y < 0 = Img.index img (x, 0)
-    | x >= Img.cols img = Img.index img (Img.cols img - 1, y)
-    | y >= Img.rows img = Img.index img (x, Img.rows img - 1)
-    | otherwise = Img.index img (x, y)
+safeGetPixel img (x, y) = Img.index img (
+    clamp 0 (Img.cols img - 1) x,
+    clamp 0 (Img.rows img - 1) y)
+
+clamp :: Int -> Int -> Int -> Int
+clamp min max x
+    | x < min = min
+    | x > max = max
+    | otherwise = x
 
 -- | Returns the 3x3 neighborhood of the given pixel.
 getNeighborhood :: RGBImage -> (Int, Int) -> Square3x3 RGBPixel
