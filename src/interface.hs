@@ -11,12 +11,12 @@ data Algorithm = ScaleX | NearestNeigbor | HQX
 upscaleAlgorithm2 :: Algorithm -> (RGBImage -> RGBImage)
 upscaleAlgorithm2 ScaleX = upscale2x scale2x
 upscaleAlgorithm2 NearestNeigbor = upscale2x nearestNeighbor2x
-upscaleAlgorithm2 HQX = upscale2x hqx
+upscaleAlgorithm2 HQX = upscale2x hq2x
 
 upscaleAlgorithm3 :: Algorithm -> (RGBImage -> RGBImage)
 upscaleAlgorithm3 ScaleX = upscale3x scale3x
 upscaleAlgorithm3 NearestNeigbor = upscale3x nearestNeighbor3x
-upscaleAlgorithm3 HQX = upscale3x hqx
+upscaleAlgorithm3 HQX = upscale3x hq3x
 
 upscaleFactorized :: Algorithm -> (Int, Int) -> RGBImage -> RGBImage
 upscaleFactorized algorithm (0, 0) img = img
