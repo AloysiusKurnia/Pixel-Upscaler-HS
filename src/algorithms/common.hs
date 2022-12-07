@@ -122,7 +122,7 @@ rgb2yuv (Img.PixelRGB r g b) = (y, u, v)
 
 -- | count the difference of two yuv colors
 yuvDiff :: (Double, Double, Double) -> (Double, Double, Double) -> Bool
-yuvDiff (y1, u1, v1) (y2, u2, v2) = abs (y1 - y2) > 3145728 || abs (u1 - u2) > 1792 || abs (v1 - v2) > 6
+yuvDiff (y1, u1, v1) (y2, u2, v2) = abs (y1 - y2) > (48/255) || abs (u1 - u2) > (7/255) || abs (v1 - v2) > (6/255)
 
 -- | determine which two color is different enough
 isDifferent :: RGBPixel -> RGBPixel -> Bool
