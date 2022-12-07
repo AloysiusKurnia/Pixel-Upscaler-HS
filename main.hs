@@ -1,6 +1,7 @@
 module Main where
 
 import qualified Graphics.Image as Img
+import Src.Algorithms.HQXPatterns.HQ3X
 import Src.Algorithms.ScaleX
 import Src.Algorithms.Common
 

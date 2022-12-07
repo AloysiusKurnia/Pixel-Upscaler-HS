@@ -40,3 +40,4 @@ hqxGetPattern (c1, c2, c3, c4, c5, c6, c7, c8, c9) =
     let arr = [c1, c2, c3, c4, c6, c7, c8, c9] in
     let arr' = map (\x -> if (isDifferent x c5) then 1 else 0) arr in
     foldr (+) 0 [2^i | (i, x) <- zip [0..] arr', x == 1]
+
