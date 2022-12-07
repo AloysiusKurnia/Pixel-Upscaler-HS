@@ -1,10 +1,11 @@
 module Main where
 
 import qualified Graphics.Image as Img
-import Src.Algorithms.ScaleX
-import Src.Algorithms.Common
+import Src.Interface
+
+pixelArtUpscaler :: String -> Algorithm -> Int -> String -> IO ()
+pixelArtUpscaler input algorithm n output = Img.readImageRGB Img.VU input
+    >>= \img -> writeIfValid (upscale algorithm n img) output
 
 main :: IO ()
-main = Img.readImageRGB Img.VU "example.png" >>=
-    return . upscale3x scale3x >>= 
-    Img.writeImage "output.png"
+main = pixelArtUpscaler "example.png" NearestNeigbor 2 "example-2x.png"
