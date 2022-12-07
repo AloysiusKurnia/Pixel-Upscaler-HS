@@ -4,7 +4,6 @@ import Src.Algorithms.HQX
 import Src.Algorithms.Common
 
 data PositionPatternHQ3x = P3_00 | P3_01 | P3_02 | P3_10 | P3_11 | P3_12 | P3_20 | P3_21 | P3_22
-
 data BlendTypeHQ3x = B3_1M | B3_1U | B3_1L | B3_2 | B3_4 | B3_5 | B3_C | B3_1 | B3_3 | B3_6 | B3_1R | B3_ | B3_1D
 
 hq3x :: RGBImage -> (Int, Int) -> Square3x3 RGBPixel
