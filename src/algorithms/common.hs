@@ -34,12 +34,15 @@ type Square3x3 a = (
 -- | Returns the pixel at the given coordinates. If the coordinates are out of
 -- bounds, returns the pixel at the closest coordinates.
 safeGetPixel :: RGBImage -> (Int, Int) -> RGBPixel
-safeGetPixel img (x, y)
-    | x < 0 = Img.index img (0, y)
-    | y < 0 = Img.index img (x, 0)
-    | x >= Img.cols img = Img.index img (Img.cols img - 1, y)
-    | y >= Img.rows img = Img.index img (x, Img.rows img - 1)
-    | otherwise = Img.index img (x, y)
+safeGetPixel img (x, y) = Img.index img (
+    clamp 0 (Img.cols img - 1) x,
+    clamp 0 (Img.rows img - 1) y)
+
+clamp :: Int -> Int -> Int -> Int
+clamp min max x
+    | x < min = min
+    | x > max = max
+    | otherwise = x
 
 -- | Returns the 3x3 neighborhood of the given pixel.
 getNeighborhood :: RGBImage -> (Int, Int) -> Square3x3 RGBPixel
@@ -111,3 +114,19 @@ upscale3x algorithm img = Img.transpose
     $ Img.fromLists 
     $ apply3x3 (algorithm img) 
     $ xySpace (Img.cols img) (Img.rows img)
+
+-- | convert rgb color to yuv color
+rgb2yuv :: RGBPixel -> (Double, Double, Double)
+rgb2yuv (Img.PixelRGB r g b) = (y, u, v)
+    where
+        y = 0.299 * r + 0.587 * g + 0.114 * b
+        u = -0.14713 * r - 0.28886 * g + 0.436 * b
+        v = 0.615 * r - 0.51499 * g - 0.10001 * b
+
+-- | count the difference of two yuv colors
+yuvDiff :: (Double, Double, Double) -> (Double, Double, Double) -> Bool
+yuvDiff (y1, u1, v1) (y2, u2, v2) = abs (y1 - y2) > (48/255) || abs (u1 - u2) > (7/255) || abs (v1 - v2) > (6/255)
+
+-- | determine which two color is different enough
+isDifferent :: RGBPixel -> RGBPixel -> Bool
+isDifferent p1 p2 = yuvDiff (rgb2yuv p1) (rgb2yuv p2)
