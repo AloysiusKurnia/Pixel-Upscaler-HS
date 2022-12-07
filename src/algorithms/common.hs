@@ -111,3 +111,19 @@ upscale3x algorithm img = Img.transpose
     $ Img.fromLists 
     $ apply3x3 (algorithm img) 
     $ xySpace (Img.cols img) (Img.rows img)
+
+-- | convert rgb color to yuv color
+rgb2yuv :: RGBPixel -> (Double, Double, Double)
+rgb2yuv (Img.PixelRGB r g b) = (y, u, v)
+    where
+        y = 0.299 * r + 0.587 * g + 0.114 * b
+        u = -0.14713 * r - 0.28886 * g + 0.436 * b
+        v = 0.615 * r - 0.51499 * g - 0.10001 * b
+
+-- | count the difference of two yuv colors
+yuvDiff :: (Double, Double, Double) -> (Double, Double, Double) -> Bool
+yuvDiff (y1, u1, v1) (y2, u2, v2) = abs (y1 - y2) > 3145728 || abs (u1 - u2) > 1792 || abs (v1 - v2) > 6
+
+-- | determine which two color is different enough
+isDifferent :: RGBPixel -> RGBPixel -> Bool
+isDifferent p1 p2 = yuvDiff (rgb2yuv p1) (rgb2yuv p2)

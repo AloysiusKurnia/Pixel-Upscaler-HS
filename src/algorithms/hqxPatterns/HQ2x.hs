@@ -1210,4 +1210,4 @@ getPixelValueHQ2x neighborhood
       if isDiff neigborhood 6 8
         then blendHQ2x neighborhood P2_11 B2_0
         else blendHQ2x neighborhood P2_11 B2_100)
-  where pattern = hq2xGetPattern neighborhood
+  where pattern = hqxGetPattern neighborhood
