@@ -1,13 +1,10 @@
 module Src.Algorithms.HQXPatterns.HQ2X where
 
-import Src.Algorithms.HQX
+import Src.Algorithms.HQXPatterns.HQXCommon
 import Src.Algorithms.Common
 
 data PositionPatternHQ2x = P2_00 | P2_01 | P2_10 | P2_11
 data BlendTypeHQ2x = B2_0 | B2_10 | B2_11 | B2_12 | B2_20 | B2_21 | B2_22 | B2_60 | B2_61 | B2_70 | B2_90 | B2_100
-
-hq2x :: RGBImage -> (Int, Int) -> Square2x2 RGBPixel
-hq2x img (x, y) = getPixelValueHQ2x (getNeighborhood img (x, y))
 
 blendHQ2x :: Square3x3 RGBPixel -> PositionPatternHQ2x -> BlendTypeHQ2x -> RGBPixel
 blendHQ2x neighborhood P2_00 B2_0 = getNthColorFromNeighborhood 5 neighborhood
